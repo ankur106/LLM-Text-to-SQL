@@ -1,4 +1,4 @@
-from langchain_community.utilities import SQLDatabase;
+from langchain_community.utilities import SQLDatabase
 from langchain.chains import create_sql_query_chain
 from langchain_openai import ChatOpenAI
 from dotenv import load_dotenv
@@ -14,7 +14,9 @@ from langchain_core.runnables import RunnablePassthrough
 load_dotenv()
 uri = f"postgresql://{os.environ['POSTGRES_USERNAME']}:{os.environ['POSTGRES_PASSWORD']}@localhost/LLM_SQL"
 
-db = SQLDatabase.from_uri(uri)    
+db = SQLDatabase.from_uri(uri)  
+context = db.get_context()
+# print(context)
 
 # print(db.dialect)
 # print(db.get_usable_table_names())
@@ -37,19 +39,19 @@ SQL Query: {query}
 SQL Result: {result}
 Answer: """
 )
-
+# print(answer_prompt)
+# print(chain.get_prompts()[0].partial(table_info=context["table_info"]))  # can check prompt passes here
 
 answer = answer_prompt | llm | StrOutputParser()
-chain = (
+chain1 = (
     RunnablePassthrough.assign(query=write_query).assign(
         result=itemgetter("query") | execute_query
     )
-    | answer
+    
 )
+# print(chain1 | StrOutputParser())
+chain = (chain1 | answer)
 
-response  = chain.invoke({"question": "give me schema of the database?"})
+response  = chain.invoke({"question": "Give all the rows of city table"})
 
 print(response)
-
-
-
