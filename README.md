@@ -15,3 +15,8 @@
 
 for example here it solved the error via adding state first when state was not available in state table
 ![SQL Agent](/Data/sql_agent.png)
+
+3. If infrastructure is on aws [reference](https://aws.amazon.com/blogs/machine-learning/build-a-robust-text-to-sql-solution-generating-complex-queries-self-correcting-and-querying-diverse-data-sources/)
+
+- similar thing can be done on aws with glue(ETL) for metadata extraction, opensearch for similarity search, Bedrock and Athena for query execution.
+![SQL Agent](/Data/aws.png)
