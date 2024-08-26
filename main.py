@@ -6,7 +6,7 @@ from langchain_core.messages import HumanMessage, SystemMessage
 
 messages = [
     SystemMessage(content="Translate the following from English into Gujarati"),
-    HumanMessage(content="You are dick"),
+    HumanMessage(content="How are you?"),
 ]
 
 print(model.invoke(messages))
