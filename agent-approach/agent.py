@@ -15,6 +15,6 @@ agent_executor = create_sql_agent(llm, db=db, agent_type="openai-tools", verbose
 
 agent_executor.invoke(
     {
-        "input": "List all the cities with less than 1 million population"
+        "input": "Add state texas and city dallas with 1.1 million population"
     }
 )
